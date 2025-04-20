@@ -75,10 +75,19 @@ def _convert_language(raw_language) -> Language:
     """
     Convert a YAML langauge description to a Language() object
     """
-    return Language(
-        name=raw_language["Name"],
-        code=raw_language["IETF BCP 47"],
-    )
+    if len(raw_language) == 3:
+        # Use "Writing Direction" from YAML language description, if included
+        return Language(
+            name=raw_language["Name"],
+            code=raw_language["IETF BCP 47"],
+            direction=raw_language["Writing Direction"],
+        )
+    else:
+        # If no "Writing Direction" included, do not change "direction" from default value
+        return Language(
+            name=raw_language["Name"],
+            code=raw_language["IETF BCP 47"],
+        )
 
 
 def _get_dictionary_items_from_new_words(skill: Skill):

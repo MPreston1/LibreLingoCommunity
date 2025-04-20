@@ -143,14 +143,21 @@ class Course(
     pass
 
 
-class Language(namedtuple("Language", ["name", "code"])):
+class Language(namedtuple("Language", ["name", "code", "direction"],
+                          defaults=[None,None,"left-to-right"])):
     """
     Metadata about a language
 
     ### Usage example:
 
+    Can leave "direction" blank, and will use default value of "left-to-right"
     >>> Language("English", "en")
-    Language(name='English', code='en')
+    Language(name='English', code='en', direction='left-to-right')
+
+    Can include "direction"
+    >>> Language("Hebrew", "he", "right-to-left")
+    Language(name='English', code='en', direction='right-to-left')
+
     """
 
     pass
